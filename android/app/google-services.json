@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "347499801532",
+    "project_id": "nearest-8fdd2",
+    "storage_bucket": "nearest-8fdd2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:347499801532:android:17ee33881aa6bdce7d99b9",
+        "android_client_info": {
+          "package_name": "com.veeery.nearest.nearest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "347499801532-il6et7opr548gcds9kgpdak23bvcvr1o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7QvA9pMlyuldznfAR9hx90wpFrXHFgAo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "347499801532-il6et7opr548gcds9kgpdak23bvcvr1o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
