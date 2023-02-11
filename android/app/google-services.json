@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "347499801532",
-    "project_id": "nearest-8fdd2",
-    "storage_bucket": "nearest-8fdd2.appspot.com"
+    "project_number": "330243641852",
+    "project_id": "nearest-377511",
+    "storage_bucket": "nearest-377511.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:347499801532:android:17ee33881aa6bdce7d99b9",
+        "mobilesdk_app_id": "1:330243641852:android:4c69f59cbe9d6a326aa279",
         "android_client_info": {
           "package_name": "com.veeery.nearest.nearest"
         }
       },
       "oauth_client": [
         {
-          "client_id": "347499801532-il6et7opr548gcds9kgpdak23bvcvr1o.apps.googleusercontent.com",
+          "client_id": "330243641852-o07dvo4e56nhsv79405c6f1tmchej2q7.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB7QvA9pMlyuldznfAR9hx90wpFrXHFgAo"
+          "current_key": "AIzaSyAa7nXUgjfISG8Ri8r1TI93FN_c_2lRvtM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "347499801532-il6et7opr548gcds9kgpdak23bvcvr1o.apps.googleusercontent.com",
+              "client_id": "330243641852-o07dvo4e56nhsv79405c6f1tmchej2q7.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
