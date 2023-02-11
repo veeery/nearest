@@ -20,6 +20,7 @@ dependencies:
 
   # Google Maps
   google_maps_flutter:
+  geolocator:
 
   cupertino_icons: ^1.0.2
 
