@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nearest/constant/app_size_utils.dart';
+import 'package:nearest/constant/app_text_style.dart';
 
 class AppButton extends StatelessWidget {
 
@@ -7,11 +8,11 @@ class AppButton extends StatelessWidget {
   double? height;
   String title;
   Color? color;
-  Function() onTap;
+  Function()? onTap;
 
   AppButton({
     required this.title,
-    required this.onTap,
+    this.onTap,
     this.width,
     this.height,
     this.color
@@ -25,9 +26,9 @@ class AppButton extends StatelessWidget {
       color: color ?? Colors.grey[400],
       borderRadius: BorderRadius.circular(5.sp),
       child: InkWell(
-        splashColor: Colors.white,
+        splashColor: onTap == null ? Colors.transparent : Colors.white,
         borderRadius: BorderRadius.circular(5.sp),
-        onTap: onTap,
+        onTap: onTap ?? () {},
         child: Container(
           width: width ?? 20.w,
           height: height ?? 5.h,
@@ -35,7 +36,7 @@ class AppButton extends StatelessWidget {
           decoration: BoxDecoration(
               color: Colors.transparent, borderRadius: BorderRadius.circular(5.sp)),
           child: Center(
-            child: Text(title),
+            child: Text(title, style: AppTextStyle.normalText),
           ),
         ),
       ),

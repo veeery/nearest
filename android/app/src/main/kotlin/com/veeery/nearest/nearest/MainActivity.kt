@@ -1,4 +1,4 @@
-package com.veeery.nearest.nearest
+package com.veeery.nearest
 
 import io.flutter.embedding.android.FlutterActivity
 

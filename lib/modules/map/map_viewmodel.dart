@@ -1,51 +1,63 @@
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:nearest/services/network/api_repository.dart';
+import 'package:nearest/services/network/app_dio.dart';
 
 class MapViewModel extends GetxController {
-
+  String currentAddress = "You Current Address";
+  List<Placemark> placeAddress = [];
   Position? defaultPosition;
-  late dynamic markers;
+  dynamic markers;
 
+  bool statusPermission = false;
+
+  ApiRepository api = ApiRepository();
 
   @override
-  void onInit() {
-
+  void onInit() async {
+    await getCurrentLocation();
     super.onInit();
   }
 
   Future<bool> getPermission() async {
-    // bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
     LocationPermission permission = await Geolocator.checkPermission();
-
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        return  false;
+        return false;
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
       // Permissions are denied forever, handle appropriately.
-      return  false;
+      return false;
     }
-
     return true;
   }
 
-  Future getCurrentLocation() async {
-    bool status = await getPermission();
-    if (status) {
+  Future<void> getCurrentLocation() async {
+    statusPermission = await getPermission();
+    if (statusPermission) {
       defaultPosition = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
       markers = {
-        Marker(markerId: MarkerId('$defaultPosition'), position: LatLng(defaultPosition!.latitude, defaultPosition!.longitude))
+        Marker(
+            markerId: MarkerId('$defaultPosition'),
+            position: LatLng(defaultPosition!.latitude, defaultPosition!.longitude))
       };
-    } else {
-      // return message to open setting;
+      await getAddress();
     }
+
     update();
   }
 
+  Future getArea() async {
+    await api.getNearestArea(
+        longitude: defaultPosition!.longitude, latitude: defaultPosition!.latitude, areaName: "Restaurant");
+  }
 
-
+  Future getAddress() async {
+    placeAddress = await placemarkFromCoordinates(defaultPosition!.latitude, defaultPosition!.longitude);
+  }
 }

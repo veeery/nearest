@@ -8,7 +8,7 @@
 PRODUCT_NAME = nearest
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.veeery.nearest.nearest
+PRODUCT_BUNDLE_IDENTIFIER = com.veeery.nearest
 
 // The copyright displayed in application information
 PRODUCT_COPYRIGHT = Copyright © 2023 com.veeery.nearest. All rights reserved.

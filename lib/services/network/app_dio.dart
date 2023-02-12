@@ -2,7 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:nearest/services/network/interceptor.dart';
 
 class AppDio {
-  static String baseUrl = "";
+  static String baseUrl = "https://maps.googleapis.com/maps/api/";
+  // static String baseUrl = "https://www.google.com/maps/embed/v1/";
 
   // In this project we don't need header for the authentication token
 
