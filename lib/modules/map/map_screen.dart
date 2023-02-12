@@ -51,7 +51,11 @@ class MapScreen extends StatelessWidget {
               // trafficEnabled: true,
               initialCameraPosition: CameraPosition(
                   target: LatLng(controller.defaultPosition!.latitude, controller.defaultPosition!.longitude),
-                  zoom: 14.476)),
+                  zoom: 14.476),
+            onMapCreated: (GoogleMapController googleController) {
+                controller.googleMapController.complete(googleController);
+            },
+          ),
           Positioned(
             top: 8.h,
             left: 2.w,

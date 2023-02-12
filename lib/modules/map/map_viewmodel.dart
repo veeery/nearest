@@ -1,12 +1,13 @@
+import 'dart:async';
+
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:nearest/services/network/api_repository.dart';
-import 'package:nearest/services/network/app_dio.dart';
 
 class MapViewModel extends GetxController {
-  String currentAddress = "You Current Address";
+  Completer<GoogleMapController> googleMapController = Completer();
   List<Placemark> placeAddress = [];
   Position? defaultPosition;
   dynamic markers;
@@ -52,12 +53,12 @@ class MapViewModel extends GetxController {
     update();
   }
 
-  Future getArea() async {
+  Future<void> getArea() async {
     await api.getNearestArea(
         longitude: defaultPosition!.longitude, latitude: defaultPosition!.latitude, areaName: "Restaurant");
   }
 
-  Future getAddress() async {
+  Future<void> getAddress() async {
     placeAddress = await placemarkFromCoordinates(defaultPosition!.latitude, defaultPosition!.longitude);
   }
 }
