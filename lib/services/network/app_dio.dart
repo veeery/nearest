@@ -4,8 +4,6 @@ import 'package:nearest/services/network/interceptor.dart';
 class AppDio {
   static String baseUrl = "https://maps.googleapis.com/maps/api/";
 
-  // In this project we don't need header for the authentication token
-
   static Future<bool> executeApiWithTryCatch(Function function) async {
     try {
       await function();

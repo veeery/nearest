@@ -1,33 +1,17 @@
 class MapModel {
-  int id;
-  String name;
-  String address;
-  int capacity;
-  String city;
+  String placeId;
+  String? name;
   double latitude;
   double longitude;
-  String zip;
 
-  MapModel(
-      {required this.id,
-      required this.city,
-      required this.name,
-      required this.longitude,
-      required this.latitude,
-      required this.address,
-      required this.capacity,
-      required this.zip});
+  MapModel({required this.placeId, this.name, required this.longitude, required this.latitude});
 
   factory MapModel.fromJson(Map<String, dynamic> json) {
     return MapModel(
-        id: json['id'],
-        city: json['city'],
-        name: json['name'],
-        longitude: json['longitude'],
-        latitude: json['latitude'],
-        address: json['address'],
-        capacity: json['capacity'],
-        zip: json['zip']
+      placeId: json['place_id'].toString(),
+      name: json['name'] ?? "no name",
+      longitude: json['geometry']['lng'],
+      latitude: json['geometry']['lat'],
     );
   }
 }

@@ -4,16 +4,22 @@ import 'package:geocoding/geocoding.dart' hide Location;
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:nearest/models/map_model.dart';
 import 'package:nearest/services/network/api_repository.dart';
 
 class MapViewModel extends GetxController {
+
   Completer<GoogleMapController> googleMapController = Completer();
   List<Placemark> placeAddress = [];
   Position? defaultPosition;
+  List<Position> nearbyPositionList = [];
   dynamic markers;
 
   bool statusPermission = false;
   bool isLoading = false;
+
+  List<MapModel> listMap = [];
+  // List<MapModel> get listMap => _listMap;
 
   ApiRepository api = ApiRepository();
 
@@ -45,8 +51,8 @@ class MapViewModel extends GetxController {
       defaultPosition = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
       markers = {
         Marker(
-            markerId: MarkerId('$defaultPosition'),
-            position: LatLng(defaultPosition!.latitude, defaultPosition!.longitude))
+            markerId: MarkerId('0'),
+            position: LatLng(defaultPosition!.latitude, defaultPosition!.longitude)),
       };
       await getAddress();
     }
@@ -54,15 +60,33 @@ class MapViewModel extends GetxController {
     update();
   }
 
-  Future<void> getArea({required String areaName}) async {
+  Future<void> getNearbyArea({required String areaName}) async {
     triggeredLoading();
-    await api.getNearestArea(
+
+    listMap = await api.getNearestArea(
         longitude: defaultPosition!.longitude, latitude: defaultPosition!.latitude, areaName: areaName);
+
+    listMap.forEach((map) {
+      markers.add(Marker(markerId: MarkerId(map.placeId), position: LatLng(map.latitude, map.longitude)));
+    });
+
+    // for (int i=1; i<=listMap.length; i++) {
+    //   markers.add(Marker(markerId: MarkerId('i'), position: LatLng(-0.0729693, 109.391280918)));
+    // }
+
     triggeredLoading();
+    update();
   }
 
   Future<void> getAddress() async {
+    print("-------------------");
+    print(markers.runtimeType);
+    print("-------------------");
     placeAddress = await placemarkFromCoordinates(defaultPosition!.latitude, defaultPosition!.longitude);
+  }
+
+  convertMarkers() {
+
   }
 
   void triggeredLoading() {

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:nearest/constant/app_size_utils.dart';
-import 'package:nearest/constant/app_text_style.dart';
 import 'package:nearest/modules/map/map_viewmodel.dart';
 import 'package:nearest/widgets/app_button.dart';
 import 'package:nearest/widgets/app_loading.dart';
@@ -63,17 +62,16 @@ class MapScreen extends StatelessWidget {
             left: 2.w,
             child: AppButton(
               title: "Hospital",
-              onTap: () async => await controller.getArea(areaName: "hospital"),
+              onTap: () async => await controller.getNearbyArea(areaName: "hospital"),
             ),
           ),
           Positioned(
             top: 1.4.h,
             left: 25.w,
             child: AppButton(
-                title: "Restaurant",
-                onTap: () async {
-                  // await controller.getArea(areaName: "restaurant");
-                }),
+              title: "Restaurant",
+              onTap: () async => await controller.getNearbyArea(areaName: "restaurant"),
+            ),
           ),
           Positioned(
             bottom: 2.1.h,
