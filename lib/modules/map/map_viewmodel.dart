@@ -8,7 +8,6 @@ import 'package:nearest/models/map_model.dart';
 import 'package:nearest/services/network/api_repository.dart';
 
 class MapViewModel extends GetxController {
-
   Completer<GoogleMapController> googleMapController = Completer();
   List<Placemark> placeAddress = [];
   Position? defaultPosition;
@@ -19,6 +18,7 @@ class MapViewModel extends GetxController {
   bool isLoading = false;
 
   List<MapModel> listMap = [];
+
   // List<MapModel> get listMap => _listMap;
 
   ApiRepository api = ApiRepository();
@@ -40,6 +40,7 @@ class MapViewModel extends GetxController {
 
     if (permission == LocationPermission.deniedForever) {
       // Permissions are denied forever, handle appropriately.
+      Geolocator.openLocationSettings();
       return false;
     }
     return true;
@@ -50,9 +51,7 @@ class MapViewModel extends GetxController {
     if (statusPermission) {
       defaultPosition = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
       markers = {
-        Marker(
-            markerId: MarkerId('0'),
-            position: LatLng(defaultPosition!.latitude, defaultPosition!.longitude)),
+        Marker(markerId: MarkerId('0'), position: LatLng(defaultPosition!.latitude, defaultPosition!.longitude)),
       };
       await getAddress();
     }
@@ -66,32 +65,30 @@ class MapViewModel extends GetxController {
     listMap = await api.getNearestArea(
         longitude: defaultPosition!.longitude, latitude: defaultPosition!.latitude, areaName: areaName);
 
-    listMap.forEach((map) {
-      markers.add(Marker(markerId: MarkerId(map.placeId), position: LatLng(map.latitude, map.longitude)));
-    });
-
-    // for (int i=1; i<=listMap.length; i++) {
-    //   markers.add(Marker(markerId: MarkerId('i'), position: LatLng(-0.0729693, 109.391280918)));
-    // }
+    convertMarkers();
 
     triggeredLoading();
     update();
   }
 
   Future<void> getAddress() async {
-    print("-------------------");
-    print(markers.runtimeType);
-    print("-------------------");
     placeAddress = await placemarkFromCoordinates(defaultPosition!.latitude, defaultPosition!.longitude);
   }
 
   convertMarkers() {
+    markers = [];
 
+    markers = {
+      Marker(markerId: MarkerId('0'), position: LatLng(defaultPosition!.latitude, defaultPosition!.longitude)),
+    };
+
+    listMap.forEach((map) {
+      markers.add(Marker(markerId: MarkerId(map.placeId), position: LatLng(map.latitude, map.longitude)));
+    });
   }
 
   void triggeredLoading() {
-    isLoading =! isLoading;
+    isLoading = !isLoading;
     update();
   }
-
 }

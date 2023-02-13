@@ -93,7 +93,8 @@ class MapScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text('You Location Permission is Denied'),
-                AppButton(title: "Get Permission", onTap: () async => await controller.getCurrentLocation())
+                SizedBox(height: 2.h),
+                AppButton(width: 50.w,title: "Get Permission", onTap: () async => await controller.getCurrentLocation())
               ],
             )
           : Container(),
