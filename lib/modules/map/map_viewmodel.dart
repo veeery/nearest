@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:geocoding/geocoding.dart';
+import 'package:geocoding/geocoding.dart' hide Location;
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -13,6 +13,7 @@ class MapViewModel extends GetxController {
   dynamic markers;
 
   bool statusPermission = false;
+  bool isLoading = false;
 
   ApiRepository api = ApiRepository();
 
@@ -53,12 +54,20 @@ class MapViewModel extends GetxController {
     update();
   }
 
-  Future<void> getArea() async {
+  Future<void> getArea({required String areaName}) async {
+    triggeredLoading();
     await api.getNearestArea(
-        longitude: defaultPosition!.longitude, latitude: defaultPosition!.latitude, areaName: "Restaurant");
+        longitude: defaultPosition!.longitude, latitude: defaultPosition!.latitude, areaName: areaName);
+    triggeredLoading();
   }
 
   Future<void> getAddress() async {
     placeAddress = await placemarkFromCoordinates(defaultPosition!.latitude, defaultPosition!.longitude);
   }
+
+  void triggeredLoading() {
+    isLoading =! isLoading;
+    update();
+  }
+
 }

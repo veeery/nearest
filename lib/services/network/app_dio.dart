@@ -3,7 +3,6 @@ import 'package:nearest/services/network/interceptor.dart';
 
 class AppDio {
   static String baseUrl = "https://maps.googleapis.com/maps/api/";
-  // static String baseUrl = "https://www.google.com/maps/embed/v1/";
 
   // In this project we don't need header for the authentication token
 
@@ -12,6 +11,7 @@ class AppDio {
       await function();
       return true;
     } on DioError catch (e) {
+      print("Try Catch Failed Message:$e");
       return false;
     }
   }

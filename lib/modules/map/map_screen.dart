@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:nearest/constant/app_size_utils.dart';
+import 'package:nearest/constant/app_text_style.dart';
 import 'package:nearest/modules/map/map_viewmodel.dart';
 import 'package:nearest/widgets/app_button.dart';
+import 'package:nearest/widgets/app_loading.dart';
+
 import 'map_address.dart';
 
 class MapScreen extends StatelessWidget {
@@ -16,6 +19,7 @@ class MapScreen extends StatelessWidget {
     AppSizeUtil.init(context: context);
 
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: Colors.transparent,
       body: SafeArea(
         child: Container(
@@ -44,48 +48,39 @@ class MapScreen extends StatelessWidget {
       child: Stack(
         children: [
           GoogleMap(
-              markers: controller.markers,
-              mapType: MapType.normal,
-              // myLocationButtonEnabled: true,
-              myLocationEnabled: true,
-              // trafficEnabled: true,
-              initialCameraPosition: CameraPosition(
-                  target: LatLng(controller.defaultPosition!.latitude, controller.defaultPosition!.longitude),
-                  zoom: 14.476),
+            markers: controller.markers,
+            mapType: MapType.normal,
+            myLocationEnabled: true,
+            initialCameraPosition: CameraPosition(
+                target: LatLng(controller.defaultPosition!.latitude, controller.defaultPosition!.longitude),
+                zoom: 14.476),
             onMapCreated: (GoogleMapController googleController) {
-                controller.googleMapController.complete(googleController);
+              controller.googleMapController.complete(googleController);
             },
-          ),
-          Positioned(
-            top: 8.h,
-            left: 2.w,
-            child: AppButton(
-              title: "Hospital",
-              onTap: () async => controller.getArea(),
-            ),
-          ),
-          Positioned(
-            top: 8.h,
-            left: 25.w,
-            child: AppButton(
-              title: "Restaurant",
-              onTap: () async => controller.getArea(),
-            ),
           ),
           Positioned(
             top: 1.4.h,
             left: 2.w,
             child: AppButton(
-              width: 82.w,
-              title: "Find Address",
-              onTap: () {},
+              title: "Hospital",
+              onTap: () async => await controller.getArea(areaName: "hospital"),
             ),
+          ),
+          Positioned(
+            top: 1.4.h,
+            left: 25.w,
+            child: AppButton(
+                title: "Restaurant",
+                onTap: () async {
+                  // await controller.getArea(areaName: "restaurant");
+                }),
           ),
           Positioned(
             bottom: 2.1.h,
             left: 2.w,
             child: MapAddress(),
-          )
+          ),
+          controller.isLoading ? const AppLoading() : Container(),
         ],
       ),
     );
